@@ -135,17 +135,22 @@ def inputAllAtOnce():
     for i in range(0, len(piInput)):
         if piInput[i] != decimalPlaces[i]:
             failed = True
-            print('You managed to remember ' + str(i + 1) + ' decimals')
+            if i > 0:
+                print('You managed to remember ' + str(i + 1) + ' decimals')
+            else:
+                print('Ouch!')
             break
-    if not failed:
+    if not failed and len(piInput) >= 1:
         print('You got all ' + str(i + 1) + ' digits right!')
 
+def clearConsole():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def promptThenClearConsole():
     print('----------------------------')
     print('Press any key to continue...')
     getch.read()
-    os.system('cls' if os.name == 'nt' else 'clear')
+    clearConsole()
 
 version=0.1
 
@@ -166,7 +171,10 @@ while 1:
     try:
         choice = int(choice)
     except:
-        break
+        if choice.lower() == 'x':
+           break
+        clearConsole()
+        continue
 
     if choice == 0:
         printPi()
@@ -177,5 +185,6 @@ while 1:
     elif choice == 3:
         inputAllAtOnce()
     else:
-        break
+        clearConsole()
+        continue
     promptThenClearConsole()
