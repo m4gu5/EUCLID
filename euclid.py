@@ -7,6 +7,9 @@
 
 import os
 import sys
+import time
+import urllib.parse
+import webbrowser
 from random import randrange
 
 class _Getch:
@@ -58,7 +61,7 @@ def printBanner():
     print(' KKKKKKKKK0   ckKXNXKx;     ;xKXNXOl.   kKKKKKKKK.,KKk  .KKKKK0Od,   ')
 
 def showMenu():
-    print('========== v' + str(version) + ' ===========')
+    print('========= v' + version + ' ==========')
     print('[0] Show Pi')
     print('[1] Input digits one by one')
     print('[2] Value at position')
@@ -102,11 +105,12 @@ def inputOneByOne():
     numberCount = getNumberCount()
 
     failed = False   
- 
+
+    startTime = current_millis() 
     for i in range(1, numberCount + 1):
         sys.stdout.write('(' + str(i) + ') ')
         sys.stdout.flush()
-        number = getch.read()[0]
+        number = getch.read()
         sys.stdout.write(number + '\n')
 
         if number != decimalPlaces[i - 1]:
@@ -116,21 +120,37 @@ def inputOneByOne():
             break
     if not failed:
         print('\o/ You made it! \o/')
+        secondsNeeded = getTimeNeeded(startTime)
+        print('Time needed: ' + str(secondsNeeded) + ' seconds')
+        promptForCharThenClearConsole('x', 'I just recalled ' + str(i) + ' decimals of Pi in ' + str(secondsNeeded) + ' seconds using ' + programName + ' ' + programUrl)
+    else:
+        promptForCharThenClearConsole('x')
 
 def valueAtPosition():
     numberCount = getNumberCount()
-    
+   
+    counter = 0
+    startTime = current_millis()
     while True:
         position = randrange(numberCount)
-        inp = input('(' + str(position + 1) + ') ')
+        sys.stdout.write('(' + str(position + 1) + ') ')
+        sys.stdout.flush()
+        inp = getch.read()
+        sys.stdout.write(inp + '\n')
     
         if inp != decimalPlaces[position]:
-            print('Digit at position ' + str(position + 1) + ' is ' + decimalPlaces[position]) 
+            print('Digit at position ' + str(position + 1) + ' is ' + decimalPlaces[position])
+            print('You got ' + str(counter) + ' decimals right')
+            secondsNeeded = getTimeNeeded(startTime)
+            print('Time needed: ' + str(secondsNeeded) + ' seconds')
+            promptForCharThenClearConsole('x', 'I just recalled ' + str(counter) + ' random Pi decimals between 1 and ' + str(numberCount) + ' in ' + str(secondsNeeded) + ' seconds using ' + programName + ' ' + programUrl)
             break
+        counter += 1
 
 def inputAllAtOnce():
+    startTime = current_millis() 
     piInput = input('3.')
-   
+  
     failed = False 
     for i in range(0, len(piInput)):
         if piInput[i] != decimalPlaces[i]:
@@ -142,6 +162,15 @@ def inputAllAtOnce():
             break
     if not failed and len(piInput) >= 1:
         print('You got all ' + str(i + 1) + ' digits right!')
+        secondsNeeded = getTimeNeeded(startTime)
+        print('Time needed: ' + str(secondsNeeded) + ' seconds')
+
+def getTimeNeeded(startTime):
+    return (current_millis() - startTime) / 1000
+    
+
+def shareViaTwitter(text):
+    webbrowser.open_new_tab('https://twitter.com/intent/tweet?text=' + text)
 
 def clearConsole():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -152,7 +181,28 @@ def promptThenClearConsole():
     getch.read()
     clearConsole()
 
-version=0.1
+def promptForCharThenClearConsole(charToPromptFor, text=''):
+    print('------------------------')
+    textToPrint = 'Press ' + charToPromptFor + ' to continue'
+    if text != '':
+        textToPrint += ', s to share via Twitter'
+    print(textToPrint)
+    while True:
+        input = getch.read()
+        if input == charToPromptFor:
+            clearConsole()
+            break
+        elif text != '' and input == 's':
+            shareViaTwitter(urllib.parse.quote_plus(text))
+            clearConsole()
+            break
+
+
+version = '0.1.1'
+programName = 'EUCLID'
+programUrl = 'https://github.com/m4gu5/euclid'
+
+current_millis = lambda: int(round(time.time() * 1000))
 
 # First 1000 decimals
 decimalPlaces = '14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196442881097566593344612847564823378678316527120190914564856692346034861045432664821339360726024914127372458700660631558817488152092096282925409171536436789259036001133053054882046652138414695194151160943305727036575959195309218611738193261179310511854807446237996274956735188575272489122793818301194912983367336244065664308602139494639522473719070217986094370277053921717629317675238467481846766940513200056812714526356082778577134275778960917363717872146844090122495343014654958537105079227968925892354201995611212902196086403441815981362977477130996051870721134999999837297804995105973173281609631859502445945534690830264252230825334468503526193118817101000313783875288658753320838142061717766914730359825349042875546873115956286388235378759375195778185778053217122680661300192787661119590921642019893'
@@ -178,13 +228,15 @@ while 1:
 
     if choice == 0:
         printPi()
+        promptThenClearConsole()
     elif choice == 1:
         inputOneByOne()
     elif choice == 2:
         valueAtPosition()
     elif choice == 3:
         inputAllAtOnce()
+        promptThenClearConsole()
     else:
         clearConsole()
         continue
-    promptThenClearConsole()
+

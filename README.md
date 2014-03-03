@@ -1,4 +1,4 @@
-EUCLID v0.1
+EUCLID v0.1.1
 ===========
 
 Overview
@@ -11,9 +11,12 @@ Functions
 - Show X decimals of Pi. You can group them in order to learn them more easier.
 
 ### Check your progress
-- Input X decimals one by one
-- Enter the decimal at position X (Randomly generated)
-- Input X decimals all at once, check corectness thereafter
+- Input X decimals one by one.
+- Enter the decimal at position X (Randomly generated).
+- Input X decimals all at once, check corectness thereafter.
+
+### Share your progress
+Show your friends that you are a real freak and share your results with them via Twitter.
 
 Notice
 ------
