@@ -75,15 +75,18 @@ def printPi():
     except:
         numberOfDigits = 100
     if numberOfDigits > len(decimalPlaces):
+        # We do not have that much decimals
         numberOfDigits = len(decimalPlaces)
     groupDigits = input('Group digits? (y/n) ').lower()
     if groupDigits == '':
+        # Group by default
         groupDigits = 'y'
     if groupDigits == 'y':
         groupSize = input('Group size: ')
         try:
             groupSize = int(groupSize)
         except:
+            # Use group size of 5 chars if no or an invalid value was specified
             groupSize = 5
     groupedPi = ''
     for i in range(0, numberOfDigits):
@@ -104,9 +107,12 @@ def getNumberCount():
 def inputOneByOne():
     numberCount = getNumberCount()
 
-    failed = False   
+    print('The Challenge starts after you type any key...')
+    getch.read()
 
-    startTime = current_millis() 
+    failed = False
+
+    startTime = current_millis()
     for i in range(1, numberCount + 1):
         sys.stdout.write('(' + str(i) + ') ')
         sys.stdout.flush()
@@ -114,6 +120,7 @@ def inputOneByOne():
         sys.stdout.write(number + '\n')
 
         if number != decimalPlaces[i - 1]:
+            # Wrong digit typed
             print('You failed at decimal ' + str(i))
             print('Next digit would have been ' + decimalPlaces[i - 1])
             failed = True
@@ -210,6 +217,8 @@ decimalPlaces = '141592653589793238462643383279502884197169399375105820974944592
 versionCheck()
 
 getch = _Getch()
+
+clearConsole()
 
 while 1:
     print()
