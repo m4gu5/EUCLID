@@ -13,7 +13,7 @@ Functions
 ### Check your progress
 - Input X decimals one by one.
 - Enter the decimal at position X (Randomly generated).
-- Input X decimals all at once, check corectness thereafter.
+- Input X decimals all at once, check correctness thereafter.
 
 ### Challenge your friends
 - Who can recall Pi faster? EUCLID will record the time you need to finish a challenge.
