@@ -1,5 +1,5 @@
 EUCLID v0.1.1
-===========
+=============
 
 Overview
 --------
@@ -16,7 +16,7 @@ Functions
 - Input X decimals all at once, check correctness thereafter.
 
 ### Challenge your friends
-- Who can recall Pi faster? EUCLID will record the time you need to finish a challenge.
+- Who can recite Pi faster? EUCLID will record the time you need to finish a challenge.
 
 ### Share your progress
 Show your friends that you are a real freak and share your results with them via Twitter.

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 # Use python3 or higher to run this program
 
@@ -129,7 +129,7 @@ def inputOneByOne():
         print('\o/ You made it! \o/')
         secondsNeeded = getTimeNeeded(startTime)
         print('Time needed: ' + str(secondsNeeded) + ' seconds')
-        promptForCharThenClearConsole('x', 'I just recalled ' + str(i) + ' decimals of Pi in ' + str(secondsNeeded) + ' seconds using ' + programName + ' ' + programUrl)
+        promptForCharThenClearConsole('x', 'I just recited ' + str(i) + ' decimals of Pi in ' + str(secondsNeeded) + ' seconds using ' + programName + ' ' + programUrl)
     else:
         promptForCharThenClearConsole('x')
 
@@ -150,7 +150,7 @@ def valueAtPosition():
             print('You got ' + str(counter) + ' decimals right')
             secondsNeeded = getTimeNeeded(startTime)
             print('Time needed: ' + str(secondsNeeded) + ' seconds')
-            promptForCharThenClearConsole('x', 'I just recalled ' + str(counter) + ' random Pi decimals between 1 and ' + str(numberCount) + ' in ' + str(secondsNeeded) + ' seconds using ' + programName + ' ' + programUrl)
+            promptForCharThenClearConsole('x', 'I just recited ' + str(counter) + ' random Pi decimals between 1 and ' + str(numberCount) + ' in ' + str(secondsNeeded) + ' seconds using ' + programName + ' ' + programUrl)
             break
         counter += 1
 
@@ -163,7 +163,7 @@ def inputAllAtOnce():
         if piInput[i] != decimalPlaces[i]:
             failed = True
             if i > 0:
-                print('You managed to remember ' + str(i + 1) + ' decimals')
+                print('You managed to recite ' + str(i + 1) + ' decimals')
             else:
                 print('Ouch!')
             break
